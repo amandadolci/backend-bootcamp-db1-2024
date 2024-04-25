@@ -1,20 +1,43 @@
 const { checkSchema } = require('express-validator');
 
 const validateCreateTask = checkSchema(
-  {
-    // TODO: implementar validação
+	{
+		title: {
+			isString: { errorMessage: 'O title precisa ser uma string.' },
+			isLength: {
+				options: { max: 1000, min: 1 },
+				errorMessage: 'O title precisa ter no mínimo 1 e no máximo 1000 caracteres.',
+      },
+      notEmpty: { errorMessage: 'O title não pode ser vazio.' },
+		},
+    concluded: {
+      isBoolean: { errorMessage: 'O concluded precisa ser um boolean.' },
+      optional: true
   },
-  ['body'],
+  },
+	['body']
 );
 
 const validateUpdateTask = checkSchema(
-  {
-    // TODO: implementar validação
-  },
-  ['body'],
+	{
+		title: {
+			isString: { errorMessage: 'O title precisa ser uma string.' },
+			isLength: {
+				options: { max: 1000, min: 1 },
+				errorMessage: 'O title precisa ter no mínimo 1 e no máximo 1000 caracteres.',
+			},
+			notEmpty: { errorMessage: 'O title não pode ser vazio.' },
+      optional: true,
+		},
+		concluded: {
+			isBoolean: { errorMessage: 'O concluded precisa ser um boolean.' },
+      optional: true,
+		},
+	},
+	['body']
 );
 
 module.exports = {
-  validateCreateTask,
-  validateUpdateTask,
+	validateCreateTask,
+	validateUpdateTask,
 };
